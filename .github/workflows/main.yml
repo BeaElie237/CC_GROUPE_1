@@ -1,0 +1,53 @@
+name: Pipeline de déploiement
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "🔍 Vérification du code (Checkout)"
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      - name: "🐍 Configuration de Python"
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: "📥 Installation de Git LFS"
+        run: |
+          git lfs install
+          git lfs fetch --all
+          git lfs checkout
+          git lfs pull
+
+      - name: "✅ Vérification du checkout LFS"
+        run: |
+          echo "Listing data directory:"
+          ls -lh data/
+          echo "First 10 lines of diabetes.csv:"
+          head -n 10 data/sonar.all-data.csv
+
+      - name: "📦 Installation des dépendances"
+        run: pip install -r requirements.txt
+
+      - name: "🔧 Prétraitement des données"
+        run: python script/preprocessing.py
+
+      - name: "🤖 Entraînement des modèles"
+        run: python script/training.py
+
+      - name: "📊 Évaluation des modèles"
+        run: python script/evaluation.py
+
+      - name: "📦 Archivage et téléversement du modèle et de la documentation"
+        run: zip -r output.zip model
+
+      - name: "📧 Envoi d'un email avec le modèle et la documentation"
+        run: python script/send_email.py
