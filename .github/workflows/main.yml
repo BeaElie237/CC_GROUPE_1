@@ -31,7 +31,7 @@ jobs:
         run: |
           echo "Listing data directory:"
           ls -lh data/
-          echo "First 10 lines of diabetes.csv:"
+          echo "First 10 lines of sonar.all-data.csv:"
           head -n 10 data/sonar.all-data.csv
 
       - name: "📦 Installation des dépendances"
@@ -51,3 +51,26 @@ jobs:
 
       - name: "📧 Envoi d'un email avec le modèle et la documentation"
         run: python script/send_email.py
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "🔍 Vérification du code (Checkout)"
+        uses: actions/checkout@v2
+
+      - name: "🐍 Configuration de Python"
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: "📦 Installation des dépendances"
+        run: pip install -r requirements.txt
+
+      - name: "🚀 Déploiement de l'application Streamlit"
+        run: |
+          streamlit run streamlit_app.py --server.port 8501 --server.enableCORS false &
+
+      - name: "✅ Déploiement terminé"
+        run: echo "L'application Streamlit est maintenant en ligne !"
