@@ -188,8 +188,4 @@ Le rapport d'évaluation inclut :
 
 ---
 
-## 📝 Licence
-
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
-
 Fait par l'équipe CC_GROUPE_1 ! 🚀
