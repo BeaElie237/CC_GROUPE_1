@@ -74,4 +74,4 @@ jobs:
 
       - name: "📧 Envoi d'un email avec le lien de l'application"
         run: |
-          python script/send_email.py --message "L'application est disponible ici : https://huggingface.co/spaces/armelmbia/CC_git_hub_group_1/blob/main/script/deploy.py"
+          python script/send_email.py --message "L'application est disponible ici : https://huggingface.co/spaces/armelmbia/CC_git_hub_group_1"
