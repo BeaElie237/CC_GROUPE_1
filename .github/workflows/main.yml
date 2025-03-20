@@ -46,6 +46,9 @@ jobs:
       - name: "📊 Évaluation des modèles"
         run: python script/evaluation.py
 
+      - name: "🚀 Déploiement sur Hugging Face"
+        run: python script/push_to_huggingface.py
+
       - name: "📦 Archivage et téléversement du modèle et de la documentation"
         run: zip -r output.zip model
 
@@ -70,7 +73,7 @@ jobs:
 
       - name: "🚀 Déploiement de l'application Streamlit"
         run: |
-          streamlit run deploy.py --server.port 8501 --server.enableCORS false &
+          streamlit run streamlit_app.py --server.port 8501 --server.enableCORS false &
 
       - name: "✅ Déploiement terminé"
         run: echo "L'application Streamlit est maintenant en ligne !"
