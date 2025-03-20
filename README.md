@@ -177,7 +177,7 @@ Le rapport d'évaluation inclut :
 
 ## 🔗 Liens utiles
 
-- **Dépôt GitHub** : [https://github.com/votre_utilisateur/CC_GROUPE_1](https://github.com/votre_utilisateur/CC_GROUPE_1)
+- **Dépôt GitHub** : [https://github.com/votre_utilisateur/CC_GROUPE_1](https://github.com/BeaElie237/CC_GROUPE_1)
 - **Application Hugging Face** : [https://huggingface.co/spaces/armelmbia/CC_git_hub_group_1](https://huggingface.co/spaces/armelmbia/CC_git_hub_group_1)
 
 ---
