@@ -46,9 +46,6 @@ jobs:
       - name: "📊 Évaluation des modèles"
         run: python script/evaluation.py
 
-      - name: "🚀 Déploiement sur Hugging Face"
-        run: python script/push_to_huggingface.py
-
       - name: "📦 Archivage et téléversement du modèle et de la documentation"
         run: zip -r output.zip model
 
