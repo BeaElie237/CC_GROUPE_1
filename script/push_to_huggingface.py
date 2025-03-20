@@ -1,7 +1,7 @@
 from huggingface_hub import HfApi, Repository
 
 # Remplacez par votre token Hugging Face
-hf_token = "YOUR_HUGGING_FACE_TOKEN"
+hf_token = "Hugging_face_token"
 
 # Nom du repository sur Hugging Face
 repo_name = "armelmbia/CC_GROUPE_1"
