@@ -74,3 +74,7 @@ jobs:
 
       - name: "✅ Déploiement terminé"
         run: echo "L'application Streamlit est maintenant en ligne !"
+
+      - name: "📧 Envoi d'un email avec le lien de l'application"
+        run: |
+          python script/send_email.py --message "L'application est disponible ici : http://ton-serveur.com:8501"
