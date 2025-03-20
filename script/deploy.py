@@ -21,13 +21,6 @@ with col1:
 with col2:
     st.metric(label="🔹 Score KNN", value=THRESHOLD_SCORE["knn"])
 
-# Bouton pour remplir automatiquement les champs
-if st.button("🎲 Remplir automatiquement les champs (simulation)"):
-    # Générer des valeurs aléatoires pour les 60 fréquences
-    simulated_data = np.random.uniform(0.0, 1.0, size=60).tolist()
-else:
-    simulated_data = [0.0] * 60  # Valeurs par défaut
-
 # Formulaire pour entrer les 60 fréquences
 st.subheader("📡 Entrez les valeurs des fréquences")
 input_data = []
@@ -53,3 +46,10 @@ if st.button("🔍 Prédire"):
     # Affichage du résultat final
     final_prediction = "Mine (M)" if (svm_pred == 'M' or knn_pred == 'M') else "Rocher (R)"
     st.success(f"✅ Objet classé comme : **{final_prediction}**")
+    
+# Bouton pour remplir automatiquement les champs
+if st.button("🎲 Remplir automatiquement les champs (simulation)"):
+    # Générer des valeurs aléatoires pour les 60 fréquences
+    simulated_data = np.random.uniform(0.0, 1.0, size=60).tolist()
+else:
+    simulated_data = [0.0] * 60  # Valeurs par défaut
