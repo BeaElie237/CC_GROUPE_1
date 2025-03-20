@@ -26,14 +26,12 @@ jobs:
           git lfs fetch --all
           git lfs checkout
           git lfs pull
-
       - name: "✅ Vérification du checkout LFS"
         run: |
           echo "Listing data directory:"
           ls -lh data/
           echo "First 10 lines of sonar.all-data.csv:"
           head -n 10 data/sonar.all-data.csv
-
       - name: "📦 Installation des dépendances"
         run: pip install -r requirements.txt
 
@@ -71,10 +69,9 @@ jobs:
       - name: "🚀 Déploiement de l'application Streamlit"
         run: |
           streamlit run deploy.py --server.port 8501 --server.enableCORS false &
-
       - name: "✅ Déploiement terminé"
         run: echo "L'application Streamlit est maintenant en ligne !"
 
       - name: "📧 Envoi d'un email avec le lien de l'application"
         run: |
-          python script/send_email.py --message "L'application est disponible ici : http://ton-serveur.com:8501"
+          python script/send_email.py --message "L'application est disponible ici : https://huggingface.co/spaces/armelmbia/CC_git_hub_group_1/blob/main/script/deploy.py"
