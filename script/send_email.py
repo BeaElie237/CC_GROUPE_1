@@ -58,7 +58,7 @@ if __name__ == "__main__":
 
     # Corps du message (texte dynamique)
     body = """
-    Bonjour l'équipe ! 👋
+    hi groupe 1 ! 👋
 
     Je suis ravi de vous informer que GitHub Actions a bien effectué toutes les étapes du pipeline avec succès ! 🎉
 
