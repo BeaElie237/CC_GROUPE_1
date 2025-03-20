@@ -1,5 +1,3 @@
-Voici une documentation `README.md` adaptée à votre projet, qui traite de la classification des objets sous-marins (mines et rochers) à partir des données sonar. Cette documentation inclut les étapes de réalisation, une explication du dataset, et le lien vers l'application déployée.
-
 ---
 
 # CC_GROUPE_1
