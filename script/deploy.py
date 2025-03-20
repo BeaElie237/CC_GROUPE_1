@@ -1,46 +1,48 @@
-import pickle
+import streamlit as st
+import numpy as np
+import joblib  # Pour charger ton modèle
 import json
 
-# Charger les modèles
-with open('../model/knn_model.pkl', 'rb') as f:
-    knn_model = pickle.load(f)
+# Charger les modèles (à remplacer par tes vrais fichiers .pkl)
+svm_model = joblib.load("svm_model.pkl")
+knn_model = joblib.load("knn_model.pkl")
 
-with open('../model/svm_model.pkl', 'rb') as f:
-    svm_model = pickle.load(f)
+# Seuils de performance des modèles
+THRESHOLD_SCORE = json.loads('{"svm": 0.7857142857142857, "knn": 0.9047619047619048}')
 
-# Charger les scores
-with open('../model/scores.json', 'r') as f:
-    scores = json.load(f)
+# Titre et description du projet
+st.title("🛳️ Détection Sonar : Mine ou Rocher ?")
+st.write("Ce projet utilise des signaux sonar pour classer un objet sous-marin en Mine (M) ou Rocher (R).")
 
-def classify(model_name, input_data):
-    """
-    Classifie les données d'entrée en utilisant le modèle spécifié.
+# Affichage des métriques
+col1, col2 = st.columns(2)
+with col1:
+    st.metric(label="🔹 Score SVM", value=THRESHOLD_SCORE["svm"])
+with col2:
+    st.metric(label="🔹 Score KNN", value=THRESHOLD_SCORE["knn"])
 
-    Parameters:
-    model_name (str): Le nom du modèle à utiliser ('KNN' ou 'SVM').
-    input_data (array-like): Les données d'entrée à classifier.
+# Formulaire pour entrer les 60 fréquences
+st.subheader("📡 Entrez les valeurs des fréquences")
+input_data = []
+cols = st.columns(6)
+for i in range(60):
+    with cols[i % 6]:  # Organiser en 6 colonnes
+        val = st.number_input(f"Freq_{i+1}", min_value=0.0, max_value=1.0, step=0.01)
+        input_data.append(val)
 
-    Returns:
-    array: Les prédictions du modèle.
-    """
-    if model_name == 'KNN':
-        model = knn_model
-    elif model_name == 'SVM':
-        model = svm_model
-    else:
-        raise ValueError("Modèle non supporté: choisissez 'KNN' ou 'SVM'")
-
-    predictions = model.predict(input_data)
-    return predictions
-
-# Exemple d'utilisation
-if __name__ == "__main__":
-    # Exemple de données d'entrée
-    example_data = [[5.1, 3.5, 1.4, 0.2]]  # Remplacez par vos propres données
-
-    # Choisissez le modèle
-    model_name = 'KNN'  # ou 'SVM'
-
-    # Obtenez les prédictions
-    predictions = classify(model_name, example_data)
-    print(f"Prédictions pour le modèle {model_name}: {predictions}")
+# Prédiction
+if st.button("🔍 Prédire"):
+    input_array = np.array(input_data).reshape(1, -1)
+    
+    # Prédictions des modèles
+    svm_pred = svm_model.predict(input_array)[0]
+    knn_pred = knn_model.predict(input_array)[0]
+    
+    # Résultats
+    st.subheader("🛠️ Résultat de la classification")
+    st.write(f"🔹 **SVM** prédit : `{svm_pred}`")
+    st.write(f"🔹 **KNN** prédit : `{knn_pred}`")
+    
+    # Affichage du résultat final
+    final_prediction = "Mine (M)" if (svm_pred == 'M' or knn_pred == 'M') else "Rocher (R)"
+    st.success(f"✅ Objet classé comme : **{final_prediction}**")
