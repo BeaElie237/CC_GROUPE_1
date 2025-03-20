@@ -21,13 +21,20 @@ with col1:
 with col2:
     st.metric(label="🔹 Score KNN", value=THRESHOLD_SCORE["knn"])
 
+# Bouton pour remplir automatiquement les champs
+if st.button("🎲 Remplir automatiquement les champs (simulation)"):
+    # Générer des valeurs aléatoires pour les 60 fréquences
+    simulated_data = np.random.uniform(0.0, 1.0, size=60).tolist()
+else:
+    simulated_data = [0.0] * 60  # Valeurs par défaut
+
 # Formulaire pour entrer les 60 fréquences
 st.subheader("📡 Entrez les valeurs des fréquences")
 input_data = []
 cols = st.columns(6)
 for i in range(60):
     with cols[i % 6]:  # Organiser en 6 colonnes
-        val = st.number_input(f"Freq_{i+1}", min_value=0.0, max_value=1.0, step=0.01)
+        val = st.number_input(f"Freq_{i+1}", min_value=0.0, max_value=1.0, step=0.01, value=simulated_data[i])
         input_data.append(val)
 
 # Prédiction
